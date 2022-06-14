@@ -76,12 +76,13 @@ while True:
                     showTrades(dataJson)
                     spaces(2)
                     
-                    op1 = input("Select the trade you want to Delete: ")
-                    spaces(3)
+                    print("Select the trade you want to Delete: ")
+                    spaces(1)
                     print("Press Q for Cancell")
+                    op1 = input()
+                    
 
                     if Condition_Bottom("q", op1):
-                        messageMenu("Operation Cancelled")
                         break
                     
                     else: 

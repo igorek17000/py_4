@@ -236,9 +236,9 @@ def activate_Menu():
     showTrades(dataJson)
 
     print("Wich trade you want to make?")
-    print("Press C for Cancel")
+    print("Press Q for Cancel")
     op = input()
-    if op == "c" or op == "C":
+    if Condition_Bottom("q", op):
         pass
     else:
         make_trade(int(op))
