@@ -1,12 +1,18 @@
 import json
 import os
-import re
 
+dataJson = json.load(open('json/trade.json', 'r', ))
 
 def clear_console():
     os.system('clear')
-
-
+ 
+def messageMenu(mesage):
+    clear_console()
+    spaces(3)
+    print(mesage)
+    spaces(3)
+    input("Press any key to Contunue: ")
+    spaces(3)
 
 def questionMenu(message):
     
@@ -22,37 +28,26 @@ def questionMenu(message):
             return True
         if op == "n" or op == "N":
             return False
-       
-
-dataJson = json.load(open('json/trade.json', 'r', ))
-
 
 def Condition_Bottom(key, var):
     if var == key or var == key.upper():
         return True
     else:
-        return False
-
+        return False     
 
 def spaces(n):
     x = 0
     while x <= n:
         print()
         x += 1
-        
-
-def messageMenu(mesage):
+def top():
     clear_console()
     spaces(3)
-    print(mesage)
-    spaces(3)
-    input("Press any key to Contunue: ")
-    spaces(3)
+
 
 def saveTrade():
     with open('json/trade.json', 'w') as outfile:
         json.dump(dataJson, outfile)
-
 
 def checkABC(var):
     if not var.isalpha():
@@ -67,10 +62,6 @@ def checkNUM(var):
     else: 
         return True
         
-def top():
-    clear_console()
-    spaces(3)
-
 def newTrade():
     
     clear_console()
@@ -184,7 +175,6 @@ def deleteTrade(y):
                 else:
                     messageMenu("Operation Canceled")
                     
-
 def welcome():
     print("Trading File Editor")
 
@@ -195,7 +185,6 @@ def showTrades(data):
         for x in data:
             spaces(1)
             print("ID:", x["id"], "TRADE:", x["trade"], "SIDE:", x["side"], "PRICE:", x["price"], "SIZE:", x["size"], "LEVERAGE X:", x["leverage"], "STOP PRICE:", x["stop"])
-
 
 def options(op):
     if op == "a" or op == "A":
@@ -215,13 +204,11 @@ def options(op):
     if op == "all" or op == "ALL":
         deleteAll()
 
-
 def deleteAll():
     
     dataJson.clear()
     saveTrade()
     
-
 def tradeFileEdit():
     JsonOrder()
     op = input("Add, Show, Delete, Quit ?")
