@@ -77,6 +77,8 @@ while True:
                     spaces(2)
                     
                     op1 = input("Select the trade you want to Delete: ")
+                    spaces(3)
+                    print("Press Q for Cancell")
 
                     if Condition_Bottom("q", op1):
                         messageMenu("Operation Cancelled")
