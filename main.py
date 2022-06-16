@@ -39,17 +39,13 @@ while True:
             op1 = input()
 
             if Condition_Bottom("t", op1):
-                pass
+                newTrade()
+                saveTrade()
             if Condition_Bottom("q", op1):
                 break
             if Condition_Bottom("s", op1):
-                spaces(3)
-                print("All trading Stopped")
-                spaces(1)
-                input()
+                messageMenu("All trades has been stoped")
                 pass
-
-
 
     if Condition_Bottom("e", op):
 
@@ -75,22 +71,16 @@ while True:
                     top()
                     showTrades(dataJson)
                     spaces(2)
-                    
+
                     print("Select the trade you want to Delete: ")
                     spaces(1)
                     print("Press Q for Cancell")
                     op1 = input()
-                    
 
                     if Condition_Bottom("q", op1):
                         break
-                    
-                    else: 
+
+                    else:
                         deleteTrade(op1)
                         JsonOrder()
                         saveTrade()
-                    
-                        
-
-
-

@@ -1,1 +1,1 @@
-[{"id": 0, "trade": "BTCUSDT", "side": "s", "price": "price", "size": "size", "leverage": 2, "stop": "stop"}, {"id": 1, "trade": null, "side": "s", "price": "price", "size": "size", "leverage": 3, "stop": "stop"}, {"id": 2, "trade": "BTCUSDT", "side": "s", "price": "price", "size": "size", "leverage": 3, "stop": "stop"}]
+[{"id": 0, "trade": "BTCUSDT", "side": "l", "price": "price", "size": "size", "leverage": 3, "stop": "stop"}]
