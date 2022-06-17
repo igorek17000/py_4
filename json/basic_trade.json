@@ -1,0 +1,12 @@
+[
+    {
+        "id": 0,
+        "side": "l",
+        "symbol": "BTCUSDT",
+        "type": "limit",
+        "size": "1",
+        "leverage": 3,
+        "price": 20500,
+        "stop": 19475.0
+    }
+]

@@ -1,0 +1,13 @@
+{
+    "api_name": "sand",
+    "api_key": "62acde9141a5330001d18c35",
+    "api_secret": "0bea2dc3-03e0-452d-a8fa-1f4be192b2e0",
+    "api_password": "VivaMacri",
+    "api_restriction": {
+        "ip": 0,
+        "allowed": [
+            "general",
+            "trade"
+        ]
+    }
+}

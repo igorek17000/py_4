@@ -1,6 +1,9 @@
 from functions import deleteAll, welcome, dataJson, JsonOrder, showTrades, options, activate_Menu, newTrade, Condition_Bottom, \
     saveTrade, deleteTrade, spaces, clear_console, messageMenu, top, spaces
 
+from kuko_api import log_data
+
+
 
 JsonOrder()
 """Loading file"""
@@ -9,7 +12,9 @@ while True:
     clear_console()
     spaces(1)
     print("MAIN TRADING 0.4")
-    spaces(3)
+    spaces(2)
+    print("API Loaded ID: ", log_data["api_name"])
+    spaces(2)
     print("A for Activate a Trade")
     spaces(1)
     print("E for Edit the Trade JSON")

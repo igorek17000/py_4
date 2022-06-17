@@ -1,3 +1,5 @@
+from curses.panel import bottom_panel
+from email.message import Message
 import json
 import os
 
@@ -66,6 +68,13 @@ def checkABC(var):
         return True
 
 
+def back(actual, before):
+    if Condition_Bottom("b", actual):
+        return before()
+    else:
+        pass
+
+
 def checkNUM(var):
     if not var.isdigit():
         messageMenu("Only a NUMBER format its valid")
@@ -76,6 +85,11 @@ def checkNUM(var):
 def newTrade():
 
     clear_console()
+
+    def show_Size_USD(size, price, leverage):
+        usd = (price * size) / leverage
+        print(usd)
+        return usd
 
     def sym():
         while True:
@@ -114,6 +128,7 @@ def newTrade():
         while True:
             top()
             op = input("Leverage Level: ")
+
             if checkNUM(op):
 
                 op = int(op)
@@ -127,21 +142,69 @@ def newTrade():
                         messageMenu("Leverage too hight, lower it")
                         pass
 
-    """symbol = input("Trade name")
-    price = input("Price Limit")
-    size = input("Size Order")
-    side = input("(L)ong Or (S)hort")
-    leverage = input("Leverage X")
-    stop = input("Stop Loss Mark")"""
+    def size():
+        while True:
+            op = input("Enter your size: ")
+            print("Your size is: ", show_Size_USD)
+            print("Press any key to contunue:")
+            op1 = input()
+            while True:
+                if not Condition_Bottom("q", op1):
+                    return op
+                else:
+                    pass
+
+    def price():
+        while True:
+            op = input("Enter your price: ")
+            if not checkNUM(op):
+                messageMenu("Try to put a number")
+            else:
+                return int(op)
+
+    def stopl(type, side, price):
+        while True:
+            top()
+            op = input("Limit Price Trigger: ")
+            op = int(op)
+
+            if type == "limit":
+                if side == "long":
+                    if price > op:
+                        return op
+                    else:
+                        messageMenu(
+                            "In a Long, you cannot enter a Stop Loss lower than your buy price")
+                        pass
+                if side != "long":
+                    if price < op:
+                        return op
+                    else:
+                        messageMenu(
+                            "In a Short, you cannot enter a Stop Loss higher than your buy price")
+                        pass
+            if type == "market":
+                messageMenu("Unnused feature for now")
+
+    id = len(dataJson)
+    v_symbol = sym()
+    v_side = side()
+    v_type = "limit"
+    v_price = price()
+    v_leverage = leve()
+    v_size = size()
+    v_stop_lose = v_price * 0.95
+    #v_stop_lose = stopl(v_type, v_side, v_price)
 
     new_trade = {
-        "id": len(dataJson),
-        "trade": sym(),
-        "side": side(),
-        "price": 'price',
-        "size": 'size',
-        "leverage": leve(),
-        "stop": 'stop'
+        "id": id,
+        "side": v_side,
+        "symbol": v_symbol,
+        "type": v_type,
+        "size": v_size,
+        "leverage": v_leverage,
+        "price": v_price,
+        "stop": v_stop_lose
     }
 
     dataJson.append(new_trade)
@@ -199,7 +262,7 @@ def showTrades(data):
     else:
         for x in data:
             spaces(1)
-            print("ID:", x["id"], "TRADE:", x["trade"], "SIDE:", x["side"], "PRICE:", x["price"],
+            print("ID:", x["id"], "SIDE:", x["side"], "symbol:", x["symbol"], "PRICE:", x["price"],
                   "SIZE:", x["size"], "LEVERAGE X:", x["leverage"], "STOP PRICE:", x["stop"])
 
 
