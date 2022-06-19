@@ -4,9 +4,11 @@ import os
 
 dataJson = json.load(open('json/trade.json', 'r', ))
 
+
 def open_Json(direction, type):
-    d =  json.load(open(direction, type))
+    d = json.load(open(direction, type))
     return d
+
 
 def clear_console():
     os.system('clear')
@@ -86,8 +88,6 @@ def mainScreen(price):
     spaces(1)
 
 
-
-
 def checkNUM(var):
     if not var.isnumeric():
         messageMenu("Only a NUMBER format its valid")
@@ -126,7 +126,6 @@ def newTrade():
             if op == 'l' or op == 'L':
                 return "long"
 
-
             if op == 'S' or op == 's':
                 return "short"
             else:
@@ -149,7 +148,6 @@ def newTrade():
                         messageMenu("Leverage too hight, lower it")
                         pass
 
-
     def limit_price(actual_price_token):
         while True:
             top()
@@ -161,20 +159,21 @@ def newTrade():
             if checkNUM(op):
                 if v_side == "long":
                     if actual_price_token > op:
-                        messageMenu("Are you sure to put a LONG limit order at a HIGHER price?")
+                        messageMenu(
+                            "Are you sure to put a LONG limit order at a HIGHER price?")
                         return op
                     else:
                         return op
 
                 if v_side == "short":
                     if actual_price_token < op:
-                        messageMenu("Are you sure to put a SHORT limit order at a LOWER price?")
+                        messageMenu(
+                            "Are you sure to put a SHORT limit order at a LOWER price?")
                         return op
                     else:
                         return op
             else:
                 pass
-
 
     #v_symbol = sym(),
     v_symbol = "XBTUSDM"

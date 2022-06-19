@@ -16,4 +16,3 @@ client = User(api_key, api_secret, api_passphrase, is_sandbox=True)
 amout_usd = client.get_account_overview('USDT')
 
 print(amout_usd)
-
