@@ -5,7 +5,8 @@ import os
 dataJson = json.load(open('json/trade.json', 'r', ))
 
 def open_Json(direction, type):
-    return json.load(open(direction), type)
+    d =  json.load(open(direction, type))
+    return d
 
 def clear_console():
     os.system('clear')
@@ -85,8 +86,10 @@ def mainScreen(price):
     spaces(1)
 
 
+
+
 def checkNUM(var):
-    if not var.isdigit():
+    if not var.isnumeric():
         messageMenu("Only a NUMBER format its valid")
     else:
         return True
@@ -95,6 +98,8 @@ def checkNUM(var):
 def newTrade():
 
     clear_console()
+
+    from kuko_api_market import getPriceToken
 
     def sym():
         while True:
@@ -119,12 +124,11 @@ def newTrade():
             op = input("Long or Short?:")
 
             if op == 'l' or op == 'L':
-                op = 'long'
-                return op
+                return "long"
+
 
             if op == 'S' or op == 's':
-                op = 'short'
-                return op
+                return "short"
             else:
                 messageMenu("Enter a valid key")
                 pass
@@ -145,9 +149,37 @@ def newTrade():
                         messageMenu("Leverage too hight, lower it")
                         pass
 
-    v_symbol = sym(),
+
+    def limit_price(actual_price_token):
+        while True:
+            top()
+            print("Actual price: ", getPriceToken(v_symbol))
+            spaces(1)
+            print("Trade Type: ", v_side)
+            spaces(3)
+            op = input("Enter a limit price: ")
+            if checkNUM(op):
+                if v_side == "long":
+                    if actual_price_token > op:
+                        messageMenu("Are you sure to put a LONG limit order at a HIGHER price?")
+                        return op
+                    else:
+                        return op
+
+                if v_side == "short":
+                    if actual_price_token < op:
+                        messageMenu("Are you sure to put a SHORT limit order at a LOWER price?")
+                        return op
+                    else:
+                        return op
+            else:
+                pass
+
+
+    #v_symbol = sym(),
+    v_symbol = "XBTUSDM"
     v_side = side(),
-    v_limit_price = input("Limit price")
+    v_limit_price = limit_price(getPriceToken(v_symbol))
     v_size = input("Size order")
     v_lever = leve()
     v_stop = input("Stop limit")

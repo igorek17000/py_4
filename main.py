@@ -4,7 +4,6 @@ from functions import  mainScreen, welcome, dataJson, JsonOrder, showTrades, opt
 from kuko_api_user import amout_usd
 
 
-from kuko_api_market import priceBTC, api_key, api_passphrase, api_secret, api_name
 
 JsonOrder()
 """Loading file"""
@@ -14,10 +13,10 @@ JsonOrder()
 
 while True:
     
-    #priceBTC['indexPrice']
 
-    mainScreen(amout_usd)
+    mainScreen("amout_usd")
     
+    print("USDT ammount: ", amout_usd['accountEquity'])
 
     op = input()
     clear_console()

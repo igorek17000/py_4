@@ -1,10 +1,12 @@
 
 {
     
-    "api_name": "pepe12",
-    "api_key": "62ae78932b968a0001538e99",
-    "api_secret": "d1ca8b07-a4b5-4a89-9e80-f481da2d495b",
-    "api_passphrase": "pepe2412",
-    "sandbox": true
+    "api_name": "perro",
+    "api_key": "62ae8e2637a60900019890aa",
+    "api_secret": "0c313b3f-8487-4aee-bdfc-ec9b3b646dc5",
+    "api_passphrase": "perro12",
+    "sandbox": true,
+    "pepe": "https://mega.nz/folder/4FdwzLjR#-DvKaDQta4seGWChbZpoZA/folder/MVcQzDpK"
 
 }
+
