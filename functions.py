@@ -100,6 +100,7 @@ def newTrade():
     clear_console()
 
     from kuko_api_market import getPriceToken
+    from kuko_api_user import amout_usd_account
 
     def sym():
         while True:
@@ -124,10 +125,12 @@ def newTrade():
             op = input("Long or Short?:")
 
             if op == 'l' or op == 'L':
-                return "long"
+                op = 'long'
+                return op
 
             if op == 'S' or op == 's':
-                return "short"
+                op = 'short'
+                return op
             else:
                 messageMenu("Enter a valid key")
                 pass
@@ -155,31 +158,54 @@ def newTrade():
             spaces(1)
             print("Trade Type: ", v_side)
             spaces(3)
+
+            print(v_side)
             op = input("Enter a limit price: ")
+
             if checkNUM(op):
-                if v_side == "long":
-                    if actual_price_token > op:
-                        messageMenu(
-                            "Are you sure to put a LONG limit order at a HIGHER price?")
+
+                if v_side == ('long',):
+                    if op > actual_price_token:
+                        if questionMenu("You want to put a higher price in a LONG limit, are you sure?"):
+                            return op
+                    else:
                         return op
+                if v_side == ('short',):
+                    if op < actual_price_token:
+                        if questionMenu("You want to put a lower price in a SHORT limit, are you sure?"):
+                            return op
                     else:
                         return op
 
-                if v_side == "short":
-                    if actual_price_token < op:
-                        messageMenu(
-                            "Are you sure to put a SHORT limit order at a LOWER price?")
-                        return op
-                    else:
-                        return op
+    def size(actual_token_price, actual_account_USD_ammount):
+
+        def size_calc(op):
+            trade_USD = op * actual_token_price
+            if trade_USD > actual_account_USD_ammount:
+                messageMenu("Your price its higher than your whole account")
+                return False
+            if trade_USD > actual_account_USD_ammount / 2:
+                questionMenu(
+                    "Do you want to trade more than HALF or your account?")
             else:
-                pass
+                return True
+
+        while True:
+            top()
+            print("Actual token price in USD is: ", actual_token_price)
+            print("Actal USD ammount in Account: ", actual_account_USD_ammount)
+            spaces(2)
+            # if questionMenu("Do you want to enter the size instased of ", v_symbol, "ammount?"):
+            #op = input("Enter a Size in USD:")
+            op = input("Enter a size for trade: ")
+            if size_calc(op):
+                return op
 
     #v_symbol = sym(),
     v_symbol = "XBTUSDM"
     v_side = side(),
     v_limit_price = limit_price(getPriceToken(v_symbol))
-    v_size = input("Size order")
+    v_size = size(getPriceToken(v_symbol), amout_usd_account)
     v_lever = leve()
     v_stop = input("Stop limit")
     v_tkprofit = input("Take Profit")
@@ -192,7 +218,8 @@ def newTrade():
         "price": v_limit_price,
         "leverage": v_lever,
         "stop_loss": v_stop,
-        "take_profit": v_tkprofit
+        "take_profit": v_tkprofit,
+        "original_price": amout_usd_account
     }
 
     dataJson.append(new_trade)

@@ -13,6 +13,6 @@ api_passphrase = JsonDataUser['api_passphrase']
 client = User(api_key, api_secret, api_passphrase, is_sandbox=True)
 
 
-amout_usd = client.get_account_overview('USDT')
+amout_usd_account = client.get_account_overview('USDT')['accountEquity']
 
-print(amout_usd)
+
