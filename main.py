@@ -1,7 +1,7 @@
 from functions import mainScreen, welcome, dataJson, JsonOrder, showTrades, options, activate_Menu, newTrade, Condition_Bottom, \
     saveTrade, deleteTrade, spaces, clear_console, messageMenu, top, spaces
 
-from kuko_api_user import amout_usd
+from kuko_api_user import amout_usd_account
 
 
 JsonOrder()
@@ -12,7 +12,7 @@ while True:
 
     mainScreen("amout_usd")
 
-    print("USDT ammount: ", amout_usd['accountEquity'])
+    print("USDT ammount: ", amout_usd_account)
 
     op = input()
     clear_console()

@@ -11,4 +11,6 @@ client = Market(is_sandbox=True)
 
 def getPriceToken(token):
     data = client.get_ticker(token)
-    return data['price']
+    price_int = data['price']
+
+    return float(price_int) 

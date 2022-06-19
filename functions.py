@@ -89,7 +89,7 @@ def mainScreen(price):
 
 
 def checkNUM(var):
-    if not var.isnumeric():
+    if not var.isalnum():
         messageMenu("Only a NUMBER format its valid")
     else:
         return True
@@ -163,8 +163,9 @@ def newTrade():
             op = input("Enter a limit price: ")
 
             if checkNUM(op):
-
+                op = float(op)
                 if v_side == ('long',):
+
                     if op > actual_price_token:
                         if questionMenu("You want to put a higher price in a LONG limit, are you sure?"):
                             return op
@@ -180,33 +181,45 @@ def newTrade():
     def size(actual_token_price, actual_account_USD_ammount):
 
         def size_calc(op):
-            trade_USD = op * actual_token_price
-            if trade_USD > actual_account_USD_ammount:
-                messageMenu("Your price its higher than your whole account")
+            trade_USD_capacity = (op * actual_token_price) * v_lever
+            if trade_USD_capacity > actual_account_USD_ammount:
+                messageMenu(
+                    "Your size its higher than your whole account. Lower the size or Increment the Leverage")
                 return False
-            if trade_USD > actual_account_USD_ammount / 2:
+            if trade_USD_capacity > actual_account_USD_ammount / 2:
                 questionMenu(
                     "Do you want to trade more than HALF or your account?")
             else:
                 return True
 
+        def percent(per):
+            return round((actual_account_USD_ammount / actual_token_price) * per, 4)
+
         while True:
             top()
             print("Actual token price in USD is: ", actual_token_price)
+            spaces(1)
             print("Actal USD ammount in Account: ", actual_account_USD_ammount)
-            spaces(2)
+            spaces(1)
+            print("25%: ", percent(0.25))
+            print("50%: ", percent(0.5))
+            print("75%: ", percent(0.75))
+
             # if questionMenu("Do you want to enter the size instased of ", v_symbol, "ammount?"):
             #op = input("Enter a Size in USD:")
             op = input("Enter a size for trade: ")
             if size_calc(op):
                 return op
 
-    #v_symbol = sym(),
+    # v_symbol = sym(),
+    # v_side = side(),
+    # v_limit_price = limit_price(getPriceToken(v_symbol))
+    # v_lever = leve()
     v_symbol = "XBTUSDM"
-    v_side = side(),
-    v_limit_price = limit_price(getPriceToken(v_symbol))
+    v_side = ('long',)
+    v_limit_price = 17000
+    v_lever = 3
     v_size = size(getPriceToken(v_symbol), amout_usd_account)
-    v_lever = leve()
     v_stop = input("Stop limit")
     v_tkprofit = input("Take Profit")
 
