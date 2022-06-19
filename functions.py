@@ -66,12 +66,31 @@ def checkABC(var):
         return True
 
 
+def mainScreen(price):
+    clear_console()
+    spaces(1)
+
+    print("MAIN TRADING 0.4")
+    spaces(3)
+
+    print("BTC Price: ", price)
+    spaces(3)
+    print("A for Activate a Trade")
+    spaces(1)
+    print("E for Edit the Trade JSON")
+    spaces(1)
+    print("Q for Quit")
+    spaces(1)
+
 def checkNUM(var):
     if not var.isdigit():
         messageMenu("Only a NUMBER format its valid")
     else:
         return True
 
+
+
+        
 
 def newTrade():
 
@@ -100,11 +119,11 @@ def newTrade():
             op = input("Long or Short?:")
 
             if op == 'l' or op == 'L':
-                op = 'l'
+                op = 'long'
                 return op
 
             if op == 'S' or op == 's':
-                op = 's'
+                op = 'short'
                 return op
             else:
                 messageMenu("Enter a valid key")
@@ -115,7 +134,6 @@ def newTrade():
             top()
             op = input("Leverage Level: ")
             if checkNUM(op):
-
                 op = int(op)
                 if op > 0 and op < 25:
                     return op
@@ -127,21 +145,26 @@ def newTrade():
                         messageMenu("Leverage too hight, lower it")
                         pass
 
-    """symbol = input("Trade name")
-    price = input("Price Limit")
-    size = input("Size Order")
-    side = input("(L)ong Or (S)hort")
-    leverage = input("Leverage X")
-    stop = input("Stop Loss Mark")"""
+
+                        
+    v_symbol =  sym(),
+    v_side = side(),
+    v_limit_price = input("Limit price")
+    v_size = input("Size order")
+    v_lever = leve()
+    v_stop = input("Stop limit")
+    v_tkprofit = input("Take Profit")
+
 
     new_trade = {
         "id": len(dataJson),
-        "trade": sym(),
-        "side": side(),
-        "price": 'price',
-        "size": 'size',
-        "leverage": leve(),
-        "stop": 'stop'
+        "symbol": v_symbol,
+        "side": v_side, 
+        "size": v_size,
+        "price": v_limit_price,
+        "leverage": v_lever ,
+        "stop_loss": v_stop,
+        "take_profit": v_tkprofit
     }
 
     dataJson.append(new_trade)
@@ -199,8 +222,8 @@ def showTrades(data):
     else:
         for x in data:
             spaces(1)
-            print("ID:", x["id"], "TRADE:", x["trade"], "SIDE:", x["side"], "PRICE:", x["price"],
-                  "SIZE:", x["size"], "LEVERAGE X:", x["leverage"], "STOP PRICE:", x["stop"])
+            print("ID:", x["id"], "TRADE:", x["symbol"], "SIDE:", x["side"], "PRICE:", x["price"],
+                  "SIZE:", x["size"], "LEVERAGE X:", x["leverage"], "STOP PRICE:", x["stop_loss"], "TAKE PROFTI: ", x["take_profit"])
 
 
 def options(op):

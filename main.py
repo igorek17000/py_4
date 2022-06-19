@@ -1,21 +1,20 @@
-from functions import deleteAll, welcome, dataJson, JsonOrder, showTrades, options, activate_Menu, newTrade, Condition_Bottom, \
+from functions import  mainScreen, welcome, dataJson, JsonOrder, showTrades, options, activate_Menu, newTrade, Condition_Bottom, \
     saveTrade, deleteTrade, spaces, clear_console, messageMenu, top, spaces
 
+
+from kuko_api_client import priceBTC, api_key, api_passphrase, api_secret, api_name
 
 JsonOrder()
 """Loading file"""
 
+
+
+
 while True:
-    clear_console()
-    spaces(1)
-    print("MAIN TRADING 0.4")
-    spaces(3)
-    print("A for Activate a Trade")
-    spaces(1)
-    print("E for Edit the Trade JSON")
-    spaces(1)
-    print("Q for Quit")
-    spaces(1)
+    
+    #priceBTC['indexPrice']
+
+    mainScreen("12")
 
     op = input()
     clear_console()
