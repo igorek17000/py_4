@@ -4,6 +4,8 @@ import os
 
 dataJson = json.load(open('json/trade.json', 'r', ))
 
+def open_Json(direction, type):
+    return json.load(open(direction), type)
 
 def clear_console():
     os.system('clear')
@@ -82,15 +84,13 @@ def mainScreen(price):
     print("Q for Quit")
     spaces(1)
 
+
 def checkNUM(var):
     if not var.isdigit():
         messageMenu("Only a NUMBER format its valid")
     else:
         return True
 
-
-
-        
 
 def newTrade():
 
@@ -145,9 +145,7 @@ def newTrade():
                         messageMenu("Leverage too hight, lower it")
                         pass
 
-
-                        
-    v_symbol =  sym(),
+    v_symbol = sym(),
     v_side = side(),
     v_limit_price = input("Limit price")
     v_size = input("Size order")
@@ -155,14 +153,13 @@ def newTrade():
     v_stop = input("Stop limit")
     v_tkprofit = input("Take Profit")
 
-
     new_trade = {
         "id": len(dataJson),
         "symbol": v_symbol,
-        "side": v_side, 
+        "side": v_side,
         "size": v_size,
         "price": v_limit_price,
-        "leverage": v_lever ,
+        "leverage": v_lever,
         "stop_loss": v_stop,
         "take_profit": v_tkprofit
     }

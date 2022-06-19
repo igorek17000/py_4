@@ -1,8 +1,10 @@
 from functions import  mainScreen, welcome, dataJson, JsonOrder, showTrades, options, activate_Menu, newTrade, Condition_Bottom, \
     saveTrade, deleteTrade, spaces, clear_console, messageMenu, top, spaces
 
+from kuko_api_user import amout_usd
 
-from kuko_api_client import priceBTC, api_key, api_passphrase, api_secret, api_name
+
+from kuko_api_market import priceBTC, api_key, api_passphrase, api_secret, api_name
 
 JsonOrder()
 """Loading file"""
@@ -14,7 +16,8 @@ while True:
     
     #priceBTC['indexPrice']
 
-    mainScreen("12")
+    mainScreen(amout_usd)
+    
 
     op = input()
     clear_console()
