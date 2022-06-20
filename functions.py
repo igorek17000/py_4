@@ -180,36 +180,60 @@ def newTrade():
 
     def size(actual_token_price, actual_account_USD_ammount):
 
+        account_usd_with_lever = (actual_account_USD_ammount * v_lever)
+
         def size_calc(op):
-            trade_USD_capacity = (op * actual_token_price) * v_lever
-            if trade_USD_capacity > actual_account_USD_ammount:
+
+            trade_usd_cost = (op * actual_token_price)
+
+            print("trade cost:", trade_usd_cost)
+            print("total with leve: ", account_usd_with_lever)
+
+            input()
+            if trade_usd_cost > account_usd_with_lever:
                 messageMenu(
                     "Your size its higher than your whole account. Lower the size or Increment the Leverage")
                 return False
-            if trade_USD_capacity > actual_account_USD_ammount / 2:
-                questionMenu(
-                    "Do you want to trade more than HALF or your account?")
+            if trade_usd_cost > account_usd_with_lever / 2:
+                if questionMenu(
+                    "Do you want to trade more than HALF or your account?"):
+                    return True
+                else:
+                    return False
             else:
                 return True
 
-        def percent(per):
-            return round((actual_account_USD_ammount / actual_token_price) * per, 4)
+        def percent(ammout, per):
+            return round((( ammout / actual_token_price ) * per), 4)
 
         while True:
             top()
-            print("Actual token price in USD is: ", actual_token_price)
+            print(f"Actual {v_symbol} price in USD is: {actual_token_price}")
             spaces(1)
-            print("Actal USD ammount in Account: ", actual_account_USD_ammount)
+            print(f"Actal USD ammount in Account: {actual_account_USD_ammount}")
             spaces(1)
-            print("25%: ", percent(0.25))
-            print("50%: ", percent(0.5))
-            print("75%: ", percent(0.75))
+            print(f"Actual USD ammount in Account by Leverage:{account_usd_with_lever} (x{v_lever})")
+            spaces(1)
+            print("25%: ", percent(account_usd_with_lever, 0.25))
+            print("50%: ", percent(account_usd_with_lever, 0.5))
+            print("75%: ", percent(account_usd_with_lever, 0.75))
 
             # if questionMenu("Do you want to enter the size instased of ", v_symbol, "ammount?"):
             #op = input("Enter a Size in USD:")
             op = input("Enter a size for trade: ")
+            op = float(op)
             if size_calc(op):
                 return op
+
+    def stop_L():
+
+        while True:
+            top()
+            op = input("")
+            op = float(op)
+            #if v_side == ('long',):
+                #if op > 
+
 
     # v_symbol = sym(),
     # v_side = side(),

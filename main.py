@@ -1,4 +1,4 @@
-from functions import mainScreen, welcome, dataJson, JsonOrder, showTrades, options, activate_Menu, newTrade, Condition_Bottom, \
+from functions import mainScreen, welcome, dataJson, JsonOrder, showTrades, activate_Menu, newTrade, Condition_Bottom, \
     saveTrade, deleteTrade, spaces, clear_console, messageMenu, top, spaces
 
 from kuko_api_user import amout_usd_account
