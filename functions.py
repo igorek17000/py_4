@@ -250,7 +250,7 @@ def newTrade(amout_usd_account):
                 if type == "stop_l":
                     loss = ((op1 / v_limit_price) -1) * v_lever
                     if loss > (actual_account_USD_ammount * loss):
-                        messageMenu(f"Your Stop Loss should be LOWER than your liquidation (${})")
+                        messageMenu(f"Your Stop Loss should be LOWER than your liquidation (${loss})")
 
             if type_limit == "stop_l":
 
