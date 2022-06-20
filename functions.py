@@ -188,20 +188,17 @@ def newTrade(amout_usd_account):
 
             trade_usd_cost = (op * actual_token_price)
 
-            print("trade cost:", trade_usd_cost)
-            print("total with leve: ", account_usd_with_lever)
-
-            input()
             if trade_usd_cost > account_usd_with_lever:
                 messageMenu(
                     "Your size its higher than your whole account. Lower the size or Increment the Leverage")
                 return False
             if trade_usd_cost > (account_usd_with_lever / 2):
+
                 if questionMenu("Do you want to trade more than HALF or your account?"):
+                    print("pepe")
                     return True
                 else:
                     return False
-
 
         def percent(ammout, per):
             return round((( ammout / actual_token_price ) * per), 4)
