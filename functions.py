@@ -1,5 +1,6 @@
 import json
 import os
+from tkinter import N
 
 
 from kuko_api_market import getPriceToken
@@ -11,6 +12,16 @@ dataJson = json.load(open('json/trade.json', 'r', ))
 def open_Json(direction, type):
     d = json.load(open(direction, type))
     return d
+
+
+def percentage_down(entryPrice, leverage, actualPrice ):
+    percent_down = (actualPrice / entryPrice * leverage) - 1
+    if percent_down > 1:
+        messageMenu("Your price its over liquidation point")
+        return False
+    else:
+        return percent_down
+
 
 
 def clear_console():
@@ -226,11 +237,31 @@ def newTrade(amout_usd_account):
             if size_calc(op):
                 return op
 
-    def stop(limit_price, side, type_limit):
+    def stop(limit_price, side, type_limit, actual_account_USD_ammount):
 
         while True:
             top()
-            op = input("")
+
+            order = None
+
+            print(f"Limit Entry Price: {v_limit_price}")
+
+            def loss_win_calc(type, op1, actual_account_USD_ammount):
+                if type == "stop_l":
+                    loss = ((op1 / v_limit_price) -1) * v_lever
+                    if loss > (actual_account_USD_ammount * loss):
+                        messageMenu(f"Your Stop Loss should be LOWER than your liquidation (${})")
+
+            if type_limit == "stop_l":
+
+                order = "Stop Loss Order Limit Price: "
+            
+            else:
+
+                order = "Take Profit Order Limit Price: "
+
+            op = input(order)
+            
             if checkNUM(op):
                 op = float(op)
                 
@@ -246,6 +277,7 @@ def newTrade(amout_usd_account):
                             messageMenu("In a SHORT, your Stop Loss should be a number HIGHER than your entry")
                         else:
                             return op
+                    
                 
                 if type_limit == "take_p":
 
