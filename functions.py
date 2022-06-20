@@ -2,6 +2,9 @@ import json
 import os
 
 
+from kuko_api_market import getPriceToken
+#from kuko_api_user import amout_usd_account
+
 dataJson = json.load(open('json/trade.json', 'r', ))
 
 
@@ -95,12 +98,11 @@ def checkNUM(var):
         return True
 
 
-def newTrade():
+def newTrade(amout_usd_account):
 
     clear_console()
 
-    from kuko_api_market import getPriceToken
-    from kuko_api_user import amout_usd_account
+   
 
     def sym():
         while True:
@@ -194,14 +196,12 @@ def newTrade():
                 messageMenu(
                     "Your size its higher than your whole account. Lower the size or Increment the Leverage")
                 return False
-            if trade_usd_cost > account_usd_with_lever / 2:
-                if questionMenu(
-                    "Do you want to trade more than HALF or your account?"):
+            if trade_usd_cost > (account_usd_with_lever / 2):
+                if questionMenu("Do you want to trade more than HALF or your account?"):
                     return True
                 else:
                     return False
-            else:
-                return True
+
 
         def percent(ammout, per):
             return round((( ammout / actual_token_price ) * per), 4)
@@ -214,9 +214,13 @@ def newTrade():
             spaces(1)
             print(f"Actual USD ammount in Account by Leverage:{account_usd_with_lever} (x{v_lever})")
             spaces(1)
+
             print("25%: ", percent(account_usd_with_lever, 0.25))
+            spaces(1)
             print("50%: ", percent(account_usd_with_lever, 0.5))
+            spaces(1)
             print("75%: ", percent(account_usd_with_lever, 0.75))
+            spaces(1)
 
             # if questionMenu("Do you want to enter the size instased of ", v_symbol, "ammount?"):
             #op = input("Enter a Size in USD:")
@@ -225,14 +229,41 @@ def newTrade():
             if size_calc(op):
                 return op
 
-    def stop_L():
+    def stop(limit_price, side, type_limit):
 
         while True:
             top()
             op = input("")
-            op = float(op)
-            #if v_side == ('long',):
-                #if op > 
+            if checkNUM(op):
+                op = float(op)
+                
+                if type_limit == "stop_l":
+
+                    if side == ('long',):
+                        if op > limit_price:
+                            messageMenu("In a LONG, your Stop Loss should be a number LOWER than your entry")
+                        else:
+                            return op
+                    if side == ('short',):
+                        if op < limit_price:
+                            messageMenu("In a SHORT, your Stop Loss should be a number HIGHER than your entry")
+                        else:
+                            return op
+                
+                if type_limit == "take_p":
+
+                    if side == ('long',):
+                        if op < limit_price:
+                            messageMenu("In a LONG, your Take Profit should be a number HIGHER than your entry")
+                        else:
+                            return op
+                    if side == ('short',):
+                        if op > limit_price:
+                            messageMenu("In a SHORT, your Take Profit should be a number LOWER than your entry")
+                        else:
+                            return op
+
+
 
 
     # v_symbol = sym(),
@@ -244,8 +275,8 @@ def newTrade():
     v_limit_price = 17000
     v_lever = 3
     v_size = size(getPriceToken(v_symbol), amout_usd_account)
-    v_stop = input("Stop limit")
-    v_tkprofit = input("Take Profit")
+    v_stop = stop(v_limit_price, v_side, "stop_l")
+    v_tkprofit = stop(v_limit_price, v_side, "take_p")
 
     new_trade = {
         "id": len(dataJson),

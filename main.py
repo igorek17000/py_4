@@ -36,7 +36,7 @@ while True:
             op1 = input()
 
             if Condition_Bottom("t", op1):
-                newTrade()
+                newTrade(amout_usd_account)
                 saveTrade()
             if Condition_Bottom("q", op1):
                 break
@@ -59,7 +59,7 @@ while True:
             if Condition_Bottom("q", op):
                 break
             if Condition_Bottom("a", op):
-                newTrade()
+                newTrade(amout_usd_account)
                 saveTrade()
             if Condition_Bottom("d", op):
 
